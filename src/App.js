@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {fetch as fetchPolyfill} from 'whatwg-fetch'
+
 
 class App extends Component {
+
+  state = { body: { results: []} }
+
+  makeRequest = () => {
+    fetch('https://inf.wefindx.com/topics/')
+    .then(function(response) {
+      return response.json()
+    }).then((body) => {
+      this.setState({ body })
+    })
+  }
+
+  componentWillMount() {
+    this.makeRequest();
+  }
+
   render() {
+    console.log(this.state.body)
+    const items = this.state.body['results'];
+    const listItems = items.map((item) =>
+      <li key={item.id}>{item.title}</li>
+    );
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <ul>
+          {listItems}
+        </ul>
       </div>
     );
   }
