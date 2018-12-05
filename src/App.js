@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+/* eslint-disable */
 import {fetch as fetchPolyfill} from 'whatwg-fetch'
+/* eslint-enable */
 
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
       return response.json()
     }).then((body) => {
       this.setState({ body })
+      console.log(this.state)
     })
   }
 
