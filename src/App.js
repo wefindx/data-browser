@@ -9,25 +9,17 @@ import {
   CardSubtitle,
   CardBody,
   Navbar,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  InputGroup, InputGroupAddon, Input,
-  ButtonDropdown
+  InputGroup, Input
 } from 'reactstrap';
 
 import ReactMarkdown from 'react-markdown';
 
 class App extends Component {
 
-  state = { body: { results: []}, dropdownOpen: false }
-
-  toggle = () => {
-    this.setState({ dropdownOpen: !this.state.dropdownOpen });
-  }
+  state = { body: { results: []} }
 
   makeRequest = () => {
-    fetch('https://inf.wefindx.com/topics/')
+    fetch('https://test.wefindx.io/topics/?lang=cn&only=1&is_draft=0&type__not=4')
     .then(function(response) {
       return response.json()
     }).then((body) => {
@@ -43,6 +35,7 @@ class App extends Component {
   render() {
     console.log(this.state.body)
     const items = this.state.body['results'];
+
     const listItems = items.map((item) =>
       <Card key={item.id}>
         <CardBody>
@@ -52,35 +45,24 @@ class App extends Component {
           </CardSubtitle>
           <ReactMarkdown source={item.body} />
           <a href={item.url} target="_blank" rel="noopener noreferrer">{item.url}</a>
+          {/*<ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' width='480' />*/}
         </CardBody>
       </Card>
     );
+
     return (
       <React.Fragment>
         <Navbar color="light" light expand="md">
           <InputGroup>
-            <InputGroupAddon addonType="prepend">
-              <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                <DropdownToggle caret>
-                  Button Dropdown
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem header>Header</DropdownItem>
-                  <DropdownItem disabled>Action</DropdownItem>
-                  <DropdownItem>Another Action</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>Another Action</DropdownItem>
-                </DropdownMenu>
-              </ButtonDropdown>
-            </InputGroupAddon>
-            <Input placeholder="Search" />
+            <Input placeholder="Search..." />
           </InputGroup>
         </Navbar>
-        <CardColumns>
+        <CardColumns className="CardColumns">
           {listItems}
         </CardColumns>
       </React.Fragment>
     );
+
   }
 }
 
