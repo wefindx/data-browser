@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from "react-router-dom";
+import { RestfulProvider } from "restful-react";
 import createHistory from "history/createBrowserHistory";
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
@@ -11,7 +12,9 @@ const history = createHistory();
 
 ReactDOM.render(
   <Router history={history}>
-    <App />
+    <RestfulProvider base="https://test.wefindx.io">
+      <App />
+    </RestfulProvider>
   </Router>,
   document.getElementById('root')
 );
