@@ -1,0 +1,17 @@
+.dashboard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard_icon {
+  margin-right: 10px;
+}
+
+.dashboard_actions-label {
+  margin-right: 10px;
+}
+
+.dashboard_content {
+  flex-grow: 1;
+}

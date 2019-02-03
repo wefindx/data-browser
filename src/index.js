@@ -1,23 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router } from "react-router-dom";
-import { RestfulProvider } from "restful-react";
-import createHistory from "history/createBrowserHistory";
-import 'bootstrap/dist/css/bootstrap.css';
+import { createStore } from 'redux';
 import './index.css';
 import App from './App';
+import app from './reducers';
 import * as serviceWorker from './serviceWorker';
 
-const history = createHistory();
+const store = createStore(app);
 
-ReactDOM.render(
-  <Router history={history}>
-    <RestfulProvider base="https://test.wefindx.io">
-      <App />
-    </RestfulProvider>
-  </Router>,
-  document.getElementById('root')
-);
+ReactDOM.render(<App store={store} />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
