@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import queryString from 'query-string';
 import { RestfulProvider, Get } from 'restful-react';
 import {
@@ -14,7 +14,7 @@ import ReactMarkdown from 'react-markdown';
 import './Search.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-class Search extends PureComponent {
+class Search extends Component {
   timeout = 0;
 
   shouldComponentUpdate(nextProps) {
