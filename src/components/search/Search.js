@@ -17,6 +17,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 class Search extends PureComponent {
   timeout = 0;
 
+  shouldComponentUpdate(nextProps) {
+    const queryParams = queryString.parse(this.props.location.search);
+    const nextQueryParams = queryString.parse(nextProps.location.search);
+
+    return queryParams.search !== nextQueryParams.search;
+  }
+
   handleSearch = (searchQuery) => {
     if (this.timeout) {
       clearTimeout(this.timeout);
@@ -36,14 +43,13 @@ class Search extends PureComponent {
 
   onChangeSearch = (e) => {
     const searchQuery = queryString.parse(this.props.location.search);
-    console.log(this.props.location.search);
     searchQuery.search = e.target.value;
-    console.log(searchQuery);
     this.handleSearch(searchQuery);
   }
 
   render() {
     const queryParams = queryString.parse(this.props.location.search);
+    const search = queryParams.search || '';
 
     return (
       <RestfulProvider base="https://test.wefindx.io">
@@ -56,7 +62,7 @@ class Search extends PureComponent {
           <div className="search_results">
             <Get
               path="/topics/"
-              queryParams={queryParams}
+              queryParams={{ search }}
             >
               {(data, { loading, error }) => {
                 if (loading) {
