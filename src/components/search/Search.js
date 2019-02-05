@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import queryString from 'query-string';
-import { Get } from "restful-react";
+import { RestfulProvider, Get } from 'restful-react';
 import {
   Card,
   CardTitle,
@@ -36,7 +36,9 @@ class Search extends PureComponent {
 
   onChangeSearch = (e) => {
     const searchQuery = queryString.parse(this.props.location.search);
+    console.log(this.props.location.search);
     searchQuery.search = e.target.value;
+    console.log(searchQuery);
     this.handleSearch(searchQuery);
   }
 
@@ -44,46 +46,48 @@ class Search extends PureComponent {
     const queryParams = queryString.parse(this.props.location.search);
 
     return (
-      <div className="search">
-        <Navbar color="light" light expand="md">
-          <InputGroup>
-            <Input onChange={this.onChangeSearch} defaultValue={queryParams.search} placeholder="Search..." />
-          </InputGroup>
-        </Navbar>
-        <div className="search_results">
-          <Get
-            path="/topics/"
-            queryParams={queryParams}
-          >
-            {(data, { loading, error }) => {
-              if (loading) {
-                return <div>Loading data...</div>;
-              }
+      <RestfulProvider base="https://test.wefindx.io">
+        <div className="search">
+          <Navbar color="light" light expand="md">
+            <InputGroup>
+              <Input onChange={this.onChangeSearch} defaultValue={queryParams.search} placeholder="Search..." />
+            </InputGroup>
+          </Navbar>
+          <div className="search_results">
+            <Get
+              path="/topics/"
+              queryParams={queryParams}
+            >
+              {(data, { loading, error }) => {
+                if (loading) {
+                  return <div>Loading data...</div>;
+                }
 
-              if (error) {
-                return <div>The request did not succeed.</div>;
-              }
-              return (
-                <CardColumns className="CardColumns">
-                  {data.results.map((item) => (
-                    <Card key={item.id}>
-                      <CardBody>
-                        <CardTitle>{item.title}</CardTitle>
-                        <CardSubtitle>
-                          {item.updated_date}
-                        </CardSubtitle>
-                        <ReactMarkdown source={item.body} />
-                        <a href={item.url} target="_blank" rel="noopener noreferrer">{item.url}</a>
-                        {/*<ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' width='480' />*/}
-                      </CardBody>
-                    </Card>
-                  ))}
-                </CardColumns>
-              );
-            }}
-          </Get>
+                if (error) {
+                  return <div>The request did not succeed.</div>;
+                }
+                return (
+                  <CardColumns className="CardColumns">
+                    {data.results.map((item) => (
+                      <Card key={item.id}>
+                        <CardBody>
+                          <CardTitle>{item.title}</CardTitle>
+                          <CardSubtitle>
+                            {item.updated_date}
+                          </CardSubtitle>
+                          <ReactMarkdown source={item.body} />
+                          <a href={item.url} target="_blank" rel="noopener noreferrer">{item.url}</a>
+                          {/*<ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' width='480' />*/}
+                        </CardBody>
+                      </Card>
+                    ))}
+                  </CardColumns>
+                );
+              }}
+            </Get>
+          </div>
         </div>
-      </div>
+      </RestfulProvider>
     );
   }
 }

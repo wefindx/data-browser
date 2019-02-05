@@ -16,9 +16,9 @@ class Dashboard extends PureComponent {
         <DashboardNavbar></DashboardNavbar>
         <div className="dashboard_content">
           <Mosaic
-            renderTile={(id, path) => widgets[id](path, this.props, this.state)}
+            renderTile={(id, path) => widgets[id].component(path, this.props, this.state)}
             value={this.props.dashboard}
-            onChange={this.props.onChange}
+            onChange={this.props.updateWindows}
           ></Mosaic>
         </div>
       </div>
@@ -31,7 +31,7 @@ const mapStateToProps = ({ dashboard }, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onChange: (newNode) => dispatch(updateWindows(newNode))
+  updateWindows: (dashboard) => dispatch(updateWindows(dashboard))
 });
 
 export default connect(
