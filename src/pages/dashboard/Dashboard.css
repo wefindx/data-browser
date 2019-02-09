@@ -10,4 +10,5 @@
 
 .dashboard_content {
   flex-grow: 1;
+  flex: 1;
 }
