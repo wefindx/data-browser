@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { Router, Route } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
+import Dashboard from './pages/dashboard/Dashboard';
 import './App.css';
-import { Route, Switch } from "react-router-dom";
-import Search from './Search';
 
-class App extends Component {
-  render() {
-    return (
-      <Switch>
-        <Route
-          exact={true}
-          path="/"
-          component={Search}
-        />
-      </Switch>
-    );
+const history = createHistory();
 
-  }
-}
+const App = ({ store }) => (
+  <Provider store={store}>
+    <Router history={history}>
+      <Route
+        exact={true}
+        path="/"
+        component={Dashboard}
+      />
+    </Router>
+  </Provider>
+);
 
 export default App;

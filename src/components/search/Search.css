@@ -1,0 +1,14 @@
+.search {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.search_navbar {
+  flex-shrink: 0;
+}
+
+.search_results {
+  flex-grow: 1;
+  overflow-y: scroll;
+}
