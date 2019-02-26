@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Mosaic } from 'react-mosaic-component';
-import { Menu, Submenu, Item, IconFont, MenuProvider } from 'react-contexify';
+import { Menu, Submenu, Item, MenuProvider } from 'react-contexify';
 import { Icon } from '@blueprintjs/core';
 import { widgets } from './widgets';
 import { updateWindows } from './actions';

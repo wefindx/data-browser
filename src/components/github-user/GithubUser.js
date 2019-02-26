@@ -72,7 +72,7 @@ export default class GithubUser extends PureComponent {
               <Card>
                 <h5>{data.name}</h5>
                 <div className="user-info">
-                  {data.avatar_url && (<img className="user-info_avatar" src={data.avatar_url} />)}
+                  {data.avatar_url && (<img className="user-info_avatar" alt={data.name} src={data.avatar_url} />)}
                   <div className="user-info_description">
                     {data.email && (<p><Icon icon={IconNames.ENVELOPE} color={Colors.GRAY1} /> {data.email}</p>)}
                     {data.company && (<p><Icon icon={IconNames.PEOPLE} color={Colors.GRAY1} /> {data.company}</p>)}
