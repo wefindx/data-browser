@@ -3,10 +3,10 @@
 }
 
 .mosaic.mosaic-thin-theme .mosaic-root {
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
-  left: 2px;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
 }
 
 .mosaic.mosaic-thin-theme .mosaic-tile {

@@ -3,6 +3,6 @@
 }
 
 .dashboard_content {
-  position: relative;
+  overflow: hidden;
   height: 100%;
 }
