@@ -1,5 +1,6 @@
 .mosaic.mosaic-thin-theme {
-
+  position: relative;
+  z-index: 0;
 }
 
 .mosaic.mosaic-thin-theme .mosaic-root {
