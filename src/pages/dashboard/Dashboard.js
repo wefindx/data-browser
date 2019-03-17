@@ -10,7 +10,6 @@ import { widgetIsOpened, openWidget } from './utils';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 import 'react-mosaic-component/react-mosaic-component.css';
-import 'react-contexify/dist/ReactContexify.min.css';
 import './css/mosaic-thin-theme.css';
 import './css/dashboard.css';
 
