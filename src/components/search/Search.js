@@ -52,7 +52,7 @@ class Search extends Component {
     const search = queryParams.search || '';
 
     return (
-      <RestfulProvider base="https://test.wefindx.io">
+      <RestfulProvider base="https://inf.wefindx.com">
         <div className="search widget">
           <Navbar color="light" light expand="md" className="search_navbar">
             <InputGroup>
