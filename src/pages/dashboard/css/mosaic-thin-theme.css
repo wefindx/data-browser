@@ -33,3 +33,12 @@
   top: 2px;
   bottom: 2px;
 }
+
+.mosaic.mosaic-thin-theme .mosaic-window,
+.mosaic.mosaic-thin-theme .mosaic-window .mosaic-window-toolbar,
+.mosaic.mosaic-thin-theme .mosaic-window .mosaic-window-body,
+.mosaic.mosaic-thin-theme .mosaic-preview,
+.mosaic.mosaic-thin-theme .mosaic-preview .mosaic-window-toolbar,
+.mosaic.mosaic-thin-theme .mosaic-preview .mosaic-window-body {
+  border-radius: 0;
+}
