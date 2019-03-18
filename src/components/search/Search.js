@@ -53,7 +53,7 @@ class Search extends Component {
 
     return (
       <RestfulProvider base="https://test.wefindx.io">
-        <div className="search">
+        <div className="search widget">
           <Navbar color="light" light expand="md" className="search_navbar">
             <InputGroup>
               <Input onChange={this.onChangeSearch} defaultValue={queryParams.search} placeholder="Search..." />

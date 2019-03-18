@@ -1,5 +1,4 @@
 import React from 'react';
-import { MosaicWindow } from 'react-mosaic-component';
 import { IconNames } from '@blueprintjs/icons';
 import Search from '../../components/search/Search';
 import GithubUSer from '../../components/github-user/GithubUser';
@@ -19,28 +18,16 @@ export const widgets = {
   [WIDGET_SEARCH]: {
     icon: IconNames.SEARCH,
     title: 'Search',
-    component: (path, { location, history }) => (
-      <MosaicWindow path={path} title="Search" location={location} history={history}>
-        <Search location={location} history={history}></Search>
-      </MosaicWindow>
-    )
+    component: (path, { location, history }) => <Search location={location} history={history}></Search>
   },
   [WIDGET_GITHUB_USER]: {
     icon: IconNames.USER,
     title: 'GitHub User',
-    component: (path, { location, history }) => (
-      <MosaicWindow path={path} title="GitHub User" location={location} history={history}>
-        <GithubUSer location={location} history={history}></GithubUSer>
-      </MosaicWindow>
-    )
+    component: (path, { location, history }) => <GithubUSer location={location} history={history}></GithubUSer>
   },
   [WIDGET_CLOCK]: {
     icon: IconNames.TIME,
     title: 'Clock',
-    component: (path) => (
-      <MosaicWindow path={path} title="Clock">
-        <Clock></Clock>
-      </MosaicWindow>
-    )
+    component: (path) => <Clock></Clock>
   }
 };
