@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Mosaic } from 'react-mosaic-component';
+import { Mosaic, MosaicWindow } from 'react-mosaic-component';
 import { MenuProvider, Menu, MenuItem, Submenu, MenuFilter } from 'react-ultimate-contextmenu'
 import { Icon } from '@blueprintjs/core';
 import { widgets } from './widgets';
@@ -26,7 +26,12 @@ class Dashboard extends PureComponent {
         <MenuProvider className="dashboard_content">
           <Mosaic
             className="mosaic-blueprint-theme mosaic-thin-theme"
-            renderTile={(id, path) => widgets[id].component(path, this.props, this.state)}
+            renderTile={(id, path) => typeof this.props.dashboard === 'string'
+              ? widgets[id].component(path, this.props, this.state)
+              : <MosaicWindow path={path} title={widgets[id].title} {...this.props} {...this.state}>
+                {widgets[id].component(path, this.props, this.state)}
+              </MosaicWindow>
+            }
             value={this.props.dashboard}
             onChange={this.props.updateWindows}
           ></Mosaic>
