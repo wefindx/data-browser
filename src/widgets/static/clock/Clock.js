@@ -14,7 +14,7 @@ export default class Clock extends PureComponent {
             cx="50"
             cy="50"
             r="48"
-          ></circle>
+          />
           <line
             fill="none"
             strokeLinecap="round"
@@ -33,7 +33,7 @@ export default class Clock extends PureComponent {
               from="0 50 50"
               to="360 50 50"
               repeatCount="indefinite"
-            ></animateTransform>
+            />
           </line>
           <line
             fill="none"
@@ -53,7 +53,7 @@ export default class Clock extends PureComponent {
               from="0 50 50"
               to="360 50 50"
               repeatCount="indefinite"
-            ></animateTransform>
+            />
           </line>
         </svg>
       </div>

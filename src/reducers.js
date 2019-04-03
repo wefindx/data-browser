@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux';
+import app from './app/reducers';
 import dashboard from './pages/dashboard/reducers';
-
-const app = (state = {}, action) => state;
+import meta from './widgets/meta/meta-provider/reducers';
 
 export default combineReducers({
   app,
-  dashboard
+  dashboard,
+  meta
 });
-
-

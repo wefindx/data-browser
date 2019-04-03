@@ -1,7 +1,6 @@
 import { UPDATE_WINDOWS } from './actions';
-import { WIDGET_SEARCH } from './widgets';
 
-const initialState = WIDGET_SEARCH;
+const initialState = null;
 
 const dashboard = (state = initialState, action) => {
   switch (action.type) {
@@ -11,6 +10,6 @@ const dashboard = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default dashboard;
