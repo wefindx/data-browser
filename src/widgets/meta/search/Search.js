@@ -40,14 +40,7 @@ class Search extends PureComponent {
   };
 
   handleScroll = () => {
-    const { getData } = this.context;
-    const { status } = getData(Search.defaultData);
-    if (status === 'success') {
-      const { clientHeight, scrollHeight, scrollTop } = this.resultsEl.current;
-      if (scrollTop + clientHeight > scrollHeight * 0.9) {
-        this.getNextData();
-      }
-    }
+    this.checkUpdating();
   };
 
   getFirstData = () => {
@@ -58,18 +51,19 @@ class Search extends PureComponent {
       search,
       status: 'loading'
     });
-    fetch(`${url}._filter`, {
+    return fetch(`${url}._filter`, {
       method: 'POST',
       body: JSON.stringify({ search })
     })
       .then(response => response.json())
-      .then(({ results, next }) =>
+      .then(({ results, next }) => {
         setData({
           results,
           next,
           status: 'success'
-        })
-      )
+        });
+        this.checkUpdating();
+      })
       .catch(() => setData({ status: 'error' }));
   };
 
@@ -81,16 +75,28 @@ class Search extends PureComponent {
     setData({
       status: 'updating'
     });
-    fetch(next, { method: 'POST', body: JSON.stringify({ search }) })
+    return fetch(next, { method: 'POST', body: JSON.stringify({ search }) })
       .then(response => response.json())
-      .then(({ results, next }) =>
+      .then(({ results, next }) => {
         setData(data => ({
           results: [...data.results, ...results],
           next,
           status: 'success'
-        }))
-      )
+        }));
+        this.checkUpdating();
+      })
       .catch(() => setData({ status: 'error' }));
+  };
+
+  checkUpdating = () => {
+    const { getData } = this.context;
+    const { status } = getData(Search.defaultData);
+    if (status === 'success') {
+      const { clientHeight, scrollHeight, scrollTop } = this.resultsEl.current;
+      if (scrollTop + clientHeight > scrollHeight * 0.9) {
+        this.getNextData();
+      }
+    }
   };
 
   renderResults = () => {
