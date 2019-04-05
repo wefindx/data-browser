@@ -44,26 +44,6 @@
   align-items: stretch;
 }
 
-.drive:disabled,
-.drive[disabled] {
-  pointer-events: none;
-}
-
-.drive:disabled .drive_radio,
-.drive[disabled] .drive_radio {
-  visibility: hidden;
-}
-
-.drive:disabled .drive_id,
-.drive[disabled] .drive_id {
-  opacity: 0.3;
-}
-
-.drive:disabled .drive_status,
-.drive[disabled] .drive_status {
-  color: #8a9ba8;
-}
-
 .drive_radio {
   display: flex;
   width: 30px;
@@ -90,4 +70,15 @@
   justify-content: center;
   color: #0f9960;
   border-left: 1px solid #bfccd6;
+}
+
+.drive.drive--dead {
+}
+
+.drive.drive--dead .drive_id {
+  opacity: 0.3;
+}
+
+.drive.drive--dead .drive_status {
+  color: #8a9ba8;
 }

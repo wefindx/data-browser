@@ -6,6 +6,7 @@
     "@blueprintjs/core": "^3.14.1",
     "@blueprintjs/icons": "^3.5.1",
     "bootstrap": "^4.3.1",
+    "classnames": "^2.2.6",
     "fetch": "^1.1.0",
     "gun": "^0.9.9999991",
     "immutable": "^4.0.0-rc.12",

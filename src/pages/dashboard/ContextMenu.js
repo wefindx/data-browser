@@ -9,6 +9,7 @@ import {
   MenuFilter
 } from 'react-ultimate-contextmenu';
 import { Map } from 'immutable';
+import classNames from 'classnames';
 import { Icon, Colors } from '@blueprintjs/core';
 import { updateWindows } from './actions';
 import { metaWidgets } from '../../widgets/meta';
@@ -32,9 +33,8 @@ class ContextMenu extends PureComponent {
 
         drivers.data.forEach(({ id }) => {
           const driver = id.slice(`${server}/driver/`.length);
-          const [, drive] = drives.data.find(
-            ([, drive, status]) =>
-              drive.startsWith(`${driver}:`) && status === 'ALIVE'
+          const [, drive] = drives.data.find(([, drive, status]) =>
+            drive.startsWith(`${driver}:`)
           ) || [null, null, null];
 
           driverDrives = driverDrives.set(driver, drive);
@@ -132,7 +132,11 @@ class ContextMenu extends PureComponent {
           <ul className="drives">
             {driverDrives.map(([, drive, status]) => (
               <li key={drive} className="drives_item">
-                <label className="drive" disabled={status === 'DEAD'}>
+                <label
+                  className={classNames('drive', {
+                    'drive--dead': status === 'DEAD'
+                  })}
+                >
                   <div className="drive_radio">
                     <input
                       type="radio"
