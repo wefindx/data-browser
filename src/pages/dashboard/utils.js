@@ -1,4 +1,10 @@
-import { Corner, getPathToCorner, getNodeAtPath, getOtherDirection, updateTree } from 'react-mosaic-component';
+import {
+  Corner,
+  getPathToCorner,
+  getNodeAtPath,
+  getOtherDirection,
+  updateTree
+} from 'react-mosaic-component';
 
 /**
  * Check opened or not widget
@@ -10,7 +16,10 @@ export function widgetIsOpened(widget, dashboard = null) {
     if (typeof dashboard === 'string') {
       return dashboard === widget;
     }
-    return widgetIsOpened(dashboard.first, widget) || widgetIsOpened(dashboard.second, widget);
+    return (
+      widgetIsOpened(widget, dashboard.first) ||
+      widgetIsOpened(widget, dashboard.second)
+    );
   }
   return false;
 }
@@ -35,10 +44,10 @@ export function openWidget(widget, dashboard = null) {
           $set: {
             direction,
             first,
-            second,
-          },
-        },
-      },
+            second
+          }
+        }
+      }
     ]);
   }
   return widget;

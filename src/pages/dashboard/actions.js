@@ -9,4 +9,4 @@ export const UPDATE_WINDOWS = 'UPDATE_WINDOWS';
 export const updateWindows = dashboard => ({
   type: UPDATE_WINDOWS,
   dashboard
-})
+});

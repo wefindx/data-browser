@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Mosaic, MosaicWindow } from 'react-mosaic-component';
-import { MenuProvider, Menu, MenuItem, Submenu, MenuFilter } from 'react-ultimate-contextmenu'
-import { Icon } from '@blueprintjs/core';
-import { widgets } from './widgets';
+import { MenuProvider } from 'react-ultimate-contextmenu';
+import ContextMenu from './ContextMenu';
 import { updateWindows } from './actions';
-import { widgetIsOpened, openWidget } from './utils';
+import { metaWidgets } from '../../widgets/meta';
+import MetaProvider from '../../widgets/meta/meta-provider/MetaProvider';
+import { staticWidgets } from '../../widgets/static';
+import { SEP } from '../../constants/common';
 
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
@@ -14,11 +16,29 @@ import './css/mosaic-thin-theme.css';
 import './css/dashboard.css';
 
 class Dashboard extends PureComponent {
-  onSelectWidget(widget) {
-    if (!widgetIsOpened(widget, this.props.dashboard)) {
-      this.props.updateWindows(openWidget(widget, this.props.dashboard));
+  renderTile = (id, path) => {
+    let title;
+    let component;
+    if (id.indexOf(SEP) > -1) {
+      const [drive, type, widget] = id.split(SEP);
+      title = `[${drive}:${type}] ${metaWidgets[widget].title}`;
+      component = (
+        <MetaProvider drive={drive} type={type} widget={widget} {...this.props}>
+          {metaWidgets[widget].component()}
+        </MetaProvider>
+      );
+    } else {
+      title = staticWidgets[id].title;
+      component = staticWidgets[id].component(this.props);
     }
-  }
+    return typeof this.props.dashboard === 'string' ? (
+      component
+    ) : (
+      <MosaicWindow path={path} title={title} {...this.props}>
+        {component}
+      </MosaicWindow>
+    );
+  };
 
   render() {
     return (
@@ -26,41 +46,23 @@ class Dashboard extends PureComponent {
         <MenuProvider className="dashboard_content">
           <Mosaic
             className="mosaic-blueprint-theme mosaic-thin-theme"
-            renderTile={(id, path) => typeof this.props.dashboard === 'string'
-              ? widgets[id].component(path, this.props, this.state)
-              : <MosaicWindow path={path} title={widgets[id].title} {...this.props} {...this.state}>
-                {widgets[id].component(path, this.props, this.state)}
-              </MosaicWindow>
-            }
+            renderTile={(id, path) => this.renderTile(id, path)}
             value={this.props.dashboard}
             onChange={this.props.updateWindows}
-          ></Mosaic>
-          <Menu>
-            <Submenu label="Open widget...">
-              <MenuFilter available={Object.keys(widgets).length > 10} />
-              {Object.keys(widgets).map(widget => (
-                <MenuItem
-                  leftIcon={<Icon icon={widgets[widget].icon} />}
-                  key={widget}
-                  onClick={() => this.onSelectWidget(widget)}
-                >
-                  {widgets[widget].title}
-                </MenuItem>
-              ))}
-            </Submenu>
-          </Menu>
+          />
+          <ContextMenu />
         </MenuProvider>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ dashboard }, ownProps) => ({
-  dashboard,
-})
+const mapStateToProps = ({ dashboard }) => ({
+  dashboard
+});
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateWindows: (dashboard) => dispatch(updateWindows(dashboard))
+const mapDispatchToProps = dispatch => ({
+  updateWindows: dashboard => dispatch(updateWindows(dashboard))
 });
 
 export default connect(

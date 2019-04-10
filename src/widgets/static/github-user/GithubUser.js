@@ -18,7 +18,7 @@ import './GithubUser.css';
 export default class GithubUser extends PureComponent {
   timeout = 0;
 
-  handleSearch = (searchQuery) => {
+  handleSearch = searchQuery => {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
@@ -29,17 +29,17 @@ export default class GithubUser extends PureComponent {
       () =>
         this.props.history.push({
           ...this.props.location,
-          search,
+          search
         }),
-      1500,
+      1500
     );
-  }
+  };
 
-  onChangeSearch = (e) => {
+  onChangeSearch = e => {
     const searchQuery = queryString.parse(this.props.location.search);
     searchQuery.username = e.target.value;
     this.handleSearch(searchQuery);
-  }
+  };
 
   render() {
     const queryParams = queryString.parse(this.props.location.search);
@@ -66,18 +66,50 @@ export default class GithubUser extends PureComponent {
               }
 
               if (error) {
-                return <NonIdealState icon={IconNames.SEARCH} title="No search results" />;
+                return (
+                  <NonIdealState
+                    icon={IconNames.SEARCH}
+                    title="No search results"
+                  />
+                );
               }
 
               return (
                 <Card>
                   <h5>{data.name}</h5>
                   <div className="user-info">
-                    {data.avatar_url && (<img className="user-info_avatar" alt={data.name} src={data.avatar_url} />)}
+                    {data.avatar_url && (
+                      <img
+                        className="user-info_avatar"
+                        alt={data.name}
+                        src={data.avatar_url}
+                      />
+                    )}
                     <div className="user-info_description">
-                      {data.email && (<p><Icon icon={IconNames.ENVELOPE} color={Colors.GRAY1} /> {data.email}</p>)}
-                      {data.company && (<p><Icon icon={IconNames.PEOPLE} color={Colors.GRAY1} /> {data.company}</p>)}
-                      {data.location && (<p><Icon icon={IconNames.MAP_MARKER} color={Colors.GRAY1} /> {data.location}</p>)}
+                      {data.email && (
+                        <p>
+                          <Icon
+                            icon={IconNames.ENVELOPE}
+                            color={Colors.GRAY1}
+                          />{' '}
+                          {data.email}
+                        </p>
+                      )}
+                      {data.company && (
+                        <p>
+                          <Icon icon={IconNames.PEOPLE} color={Colors.GRAY1} />{' '}
+                          {data.company}
+                        </p>
+                      )}
+                      {data.location && (
+                        <p>
+                          <Icon
+                            icon={IconNames.MAP_MARKER}
+                            color={Colors.GRAY1}
+                          />{' '}
+                          {data.location}
+                        </p>
+                      )}
                       <p>{data.bio}</p>
                     </div>
                   </div>
