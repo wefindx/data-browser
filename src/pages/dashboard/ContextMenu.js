@@ -35,7 +35,7 @@ class ContextMenu extends PureComponent {
           const driver = id.slice(`${server}/driver/`.length);
           const [, drive] = drives.data.find(([, drive, status]) =>
             drive.startsWith(`${driver}:`)
-          ) || [null, null, null];
+          ) || [null, `${driver}:default`, null];
 
           driverDrives = driverDrives.set(driver, drive);
         });
