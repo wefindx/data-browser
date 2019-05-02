@@ -1,20 +1,18 @@
-import React, { PureComponent, createRef } from 'react';
+import React, { PureComponent, createRef, Fragment } from 'react';
+import Columns from 'react-columns';
 import {
-  Card,
-  CardTitle,
-  CardColumns,
-  CardSubtitle,
-  CardBody,
   Navbar,
+  NavbarGroup,
   InputGroup,
-  Input
-} from 'reactstrap';
-import ReactMarkdown from 'react-markdown';
-import ReactLoading from 'react-loading';
-import { Colors } from '@blueprintjs/core';
+  Spinner,
+  NonIdealState,
+  Alignment,
+  Classes
+} from '@blueprintjs/core';
+import { IconNames } from '@blueprintjs/icons';
 import MetaContext from '../meta-provider/MetaContext';
+import Item from './Item';
 import './Search.css';
-import 'bootstrap/dist/css/bootstrap.css';
 
 class Search extends PureComponent {
   static contextType = MetaContext;
@@ -105,43 +103,30 @@ class Search extends PureComponent {
 
     if (status === 'success' || status === 'updating') {
       return (
-        <CardColumns className="CardColumns">
-          {results.map(item => (
-            <Card key={item.id}>
-              <CardBody>
-                <CardTitle>{item.title}</CardTitle>
-                <CardSubtitle>{item.updated_date}</CardSubtitle>
-                <ReactMarkdown source={item.body} />
-                <a href={item.url} target="_blank" rel="noopener noreferrer">
-                  {item.url}
-                </a>
-                {/* <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' width='480' /> */}
-              </CardBody>
-            </Card>
-          ))}
+        <Fragment>
+          <Columns>
+            {results.map((item, index) => (
+              <Item key={index} item={item} />
+            ))}
+          </Columns>
           {status === 'updating' && (
             <div className="search_updating">
-              <ReactLoading
-                type="spin"
-                color={Colors.GRAY3}
-                height={50}
-                width={50}
-              />
+              <Spinner />
             </div>
           )}
-        </CardColumns>
+        </Fragment>
       );
     } else if (status === 'error') {
-      return <div>The request did not succeed.</div>;
+      return (
+        <NonIdealState
+          icon={IconNames.ERROR}
+          title="The request did not succeed"
+        />
+      );
     } else if (status === 'loading') {
       return (
         <div className="search_loading">
-          <ReactLoading
-            type="spin"
-            color={Colors.GRAY3}
-            height={100}
-            width={100}
-          />
+          <Spinner size={Spinner.SIZE_LARGE} />
         </div>
       );
     }
@@ -170,14 +155,17 @@ class Search extends PureComponent {
 
     return (
       <div className="search widget">
-        <Navbar color="light" light expand="md" className="search_navbar">
-          <InputGroup>
-            <Input
-              onChange={this.handleChangeSearch}
+        <Navbar className="search_navbar">
+          <NavbarGroup align={Alignment.CENTER}>
+            <InputGroup
+              type="search"
+              className={Classes.FILL}
+              leftIcon={IconNames.SEARCH}
               defaultValue={search}
               placeholder="Search..."
+              onChange={this.handleChangeSearch}
             />
-          </InputGroup>
+          </NavbarGroup>
         </Navbar>
         <div
           className="search_results"

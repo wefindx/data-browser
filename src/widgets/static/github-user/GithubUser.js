@@ -51,6 +51,7 @@ export default class GithubUser extends PureComponent {
           <Navbar>
             <NavbarGroup align={Alignment.CENTER}>
               <InputGroup
+                type="search"
                 className={Classes.FILL}
                 leftIcon={IconNames.USER}
                 defaultValue={username}
