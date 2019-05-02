@@ -1,5 +1,4 @@
 import React, { PureComponent, Fragment } from 'react';
-import ReactLoading from 'react-loading';
 import { connect } from 'react-redux';
 import {
   Menu,
@@ -10,7 +9,7 @@ import {
 } from 'react-ultimate-contextmenu';
 import { Map } from 'immutable';
 import classNames from 'classnames';
-import { Icon, Colors } from '@blueprintjs/core';
+import { Spinner, Icon } from '@blueprintjs/core';
 import { updateWindows } from './actions';
 import { metaWidgets } from '../../widgets/meta';
 import { staticWidgets } from '../../widgets/static';
@@ -99,7 +98,7 @@ class ContextMenu extends PureComponent {
 
   renderMenuLoader = () => (
     <div className="contextmenu_loading">
-      <ReactLoading type="spin" color={Colors.GRAY3} height={30} width={30} />
+      <Spinner size={Spinner.SIZE_SMALL} />
     </div>
   );
 

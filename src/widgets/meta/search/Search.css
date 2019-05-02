@@ -26,3 +26,12 @@
   align-items: center;
   justify-content: center;
 }
+
+.search_item {
+  margin: 10px;
+  word-wrap: break-word;
+}
+
+.search_comment {
+  text-align: right;
+}
